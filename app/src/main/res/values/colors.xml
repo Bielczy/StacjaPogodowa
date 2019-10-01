@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#008577</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorTemperature">#F44336</color>
+    <color name="colorAccent">#4CAF50</color>
+    <color name="colorHumidity">#1D551F</color>
+    <color name="colorDateExtract">#e3e6d8</color>
+    <color name="colorTemperatureChart">#d9dec9</color>
+    <color name="colorFreezingDuration">#2196F3</color>
+    <color name="colorFreezingConsumption">#3246BB</color>
+</resources>

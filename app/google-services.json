@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "837507536012",
+    "firebase_url": "https://stacjapogodowa-59b0a.firebaseio.com",
+    "project_id": "stacjapogodowa-59b0a",
+    "storage_bucket": "stacjapogodowa-59b0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837507536012:android:822ec0d62b2e77df",
+        "android_client_info": {
+          "package_name": "com.example.stacjapogodowa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837507536012-lp7krf1uudkrpec3vfiqucc3tqaguedc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRn2h8uc2HdnM_BAVjcKeRbYmlDHjrqS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "837507536012-lp7krf1uudkrpec3vfiqucc3tqaguedc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
