@@ -19,7 +19,9 @@
     <string name="stop_time">Stop Time</string>
     <string name="button"> ... </string>
     <string name="btnTemperature">Extract By Date</string>
-    <string name="btnRefresh">Refresh</string>
+    <string name="btnLineChart">LINE Chart</string>
+    <string name="btnBarChart">BAR Chart</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

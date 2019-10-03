@@ -11,12 +11,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,9 +39,11 @@ public class TemperatureFragment extends Fragment {
 
     CheckBox cbTemperature;
     CheckBox cbHumidity;
-    Button btnRefresh;
+    Button btnLineChart;
+    Button btnBarChart;
     DateRange range;
     LineChart lineChart;
+    BarChart barChart;
 
     private Object log;
 
@@ -64,10 +72,12 @@ public class TemperatureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnRefresh = (Button) view.findViewById(R.id.btnRefresh);
+        btnLineChart = (Button) view.findViewById(R.id.btnLineChart);
+        btnBarChart = (Button) view.findViewById(R.id.btnBarChart);
         cbHumidity = (CheckBox) view.findViewById(R.id.cbHumidity);
         cbTemperature = (CheckBox) view.findViewById(R.id.cbTemperature);
         lineChart = (LineChart) view.findViewById(R.id.chart);
+        barChart = (BarChart) view.findViewById(R.id.barChart);
         setRetainInstance(true);
     }
 
@@ -87,17 +97,23 @@ public class TemperatureFragment extends Fragment {
                     @Override
                     public void accept(final List<TemperatureLog> dane) throws Exception {
 
-                       btnRefresh.setOnClickListener(new View.OnClickListener() {
+                        btnLineChart.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                drawCharts(dane);
+                                drawLineCharts(dane);
+                            }
+                        });
+                        btnBarChart.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                drawBarCharts(dane);
                             }
                         });
                         cbTemperature.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 temperatureChecked = isChecked;
-                                drawCharts(dane);
+                                drawLineCharts(dane);
                             }
                         });
 
@@ -105,18 +121,102 @@ public class TemperatureFragment extends Fragment {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 humidityChecked = isChecked;
-                                drawCharts(dane);
+                                drawLineCharts(dane);
                             }
                         });
 
                     }
 
-                    private void drawCharts(final List<TemperatureLog> dane) {
+
+                    private void drawBarCharts(List<TemperatureLog> dane) {
+
+                        boolean temperatureChecked = cbTemperature.isChecked();
+                        boolean humidityChecked = cbHumidity.isChecked();
+
+                        lineChart.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.VISIBLE);
+
+
+                        List<BarEntry> barTemperatureEntries = new ArrayList<>();
+                        for (TemperatureLog data : dane) {
+                            barTemperatureEntries.add(new BarEntry(data.uid, data.getTemperature()));
+                        }
+
+                        List<BarEntry> barHumidityEntries = new ArrayList<>();
+                        for (TemperatureLog data : dane) {
+                            barHumidityEntries.add(new BarEntry(data.uid, data.getHumidity()));
+                        }
+
+                        BarDataSet barTemperatureDataSet = new BarDataSet(barTemperatureEntries, "℃");
+                        barTemperatureDataSet.setColors(new int []{R.color.colorTemperature}, getContext());
+                        barTemperatureDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+                        barTemperatureDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+
+
+                        BarDataSet humidityDataSet = new BarDataSet(barHumidityEntries, "% hum.");
+                        humidityDataSet.setColors(new int []{R.color.colorHumidity}, getContext());
+                        humidityDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+                        humidityDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+
+                        Legend legend = barChart.getLegend();
+                        legend.setEnabled(true);
+                        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+                        legend.setTextColor(Color.BLACK);
+
+                        if (!temperatureChecked && !humidityChecked ){
+                            barChart.setVisibility(View.INVISIBLE);
+                        }
+
+// only Temperature
+
+                        if (temperatureChecked && !humidityChecked){
+
+                            ArrayList<IBarDataSet> barDataSets = new ArrayList<IBarDataSet>();
+                            barDataSets.add(barTemperatureDataSet);
+
+                            BarData barData = new BarData(barDataSets);
+                            barChart.setData(barData);
+                            barChart.getDescription().setText("Temperature");
+                            barChart.invalidate();
+                        }
+//only Humidity
+
+                        if (!temperatureChecked && humidityChecked){
+
+                            ArrayList<IBarDataSet> barDataSets = new ArrayList<IBarDataSet>();
+                            barDataSets.add(humidityDataSet);
+
+                            BarData barData = new BarData(barDataSets);
+                            barChart.setData(barData);
+                            barChart.getDescription().setText("Huminidity");
+                            barChart.invalidate();
+                        }
+
+// Temperature + Humidity
+
+                        if (temperatureChecked && humidityChecked){
+
+                            ArrayList<IBarDataSet> barDataSets = new ArrayList<IBarDataSet>();
+                            barDataSets.add(barTemperatureDataSet);
+                            barDataSets.add(humidityDataSet);
+
+                            BarData barData = new BarData(barDataSets);
+                            barChart.setData(barData);
+                            barChart.getDescription().setText("Temperature & Huminidity");
+                            barChart.invalidate();
+                        }
+
+
+
+                    }
+
+                    private void drawLineCharts(final List<TemperatureLog> dane) {
 
                         boolean temperatureChecked = cbTemperature.isChecked();
                         boolean humidityChecked = cbHumidity.isChecked();
 
                         lineChart.setVisibility(View.VISIBLE);
+                        barChart.setVisibility(View.INVISIBLE);
 
                         List<Entry> temperatureEntries = new ArrayList<>();
                         for (TemperatureLog data : dane) {
@@ -192,6 +292,8 @@ public class TemperatureFragment extends Fragment {
                     }
                 });
     }
+
+
 
     public static class DateRange{
 
