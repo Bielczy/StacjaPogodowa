@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -44,6 +45,7 @@ public class TemperatureFragment extends Fragment {
     DateRange range;
     LineChart lineChart;
     BarChart barChart;
+    TextView tvRangeStart, tvRangeStop, tvTempMax, tvHumMax, tvTempAvr, tvHumAvr, tvTempMin, tvHumMin;
 
     private Object log;
 
@@ -78,6 +80,15 @@ public class TemperatureFragment extends Fragment {
         cbTemperature = (CheckBox) view.findViewById(R.id.cbTemperature);
         lineChart = (LineChart) view.findViewById(R.id.chart);
         barChart = (BarChart) view.findViewById(R.id.barChart);
+        tvRangeStart = (TextView) view.findViewById(R.id.tvRangeStart);
+        tvRangeStop = (TextView) view.findViewById(R.id.tvRangeStop);
+        tvTempMax = (TextView) view.findViewById(R.id.tvTempMax);
+        tvHumMax = (TextView) view.findViewById(R.id.tvHumMax);
+        tvTempAvr = (TextView) view.findViewById(R.id.tvTempAvr);
+        tvHumAvr = (TextView) view.findViewById(R.id.tvHumAvr);
+        tvTempMin = (TextView) view.findViewById(R.id.tvTempMin);
+        tvHumMin = (TextView) view.findViewById(R.id.tvHumMin);
+
         setRetainInstance(true);
     }
 
@@ -125,6 +136,9 @@ public class TemperatureFragment extends Fragment {
                             }
                         });
 
+                        tvRangeStart.setText("FROM: "+startFormated+ " ");
+                        tvRangeStop.setText("TO: "+stopFormated);
+
                     }
 
 
@@ -150,13 +164,13 @@ public class TemperatureFragment extends Fragment {
                         BarDataSet barTemperatureDataSet = new BarDataSet(barTemperatureEntries, "℃");
                         barTemperatureDataSet.setColors(new int []{R.color.colorTemperature}, getContext());
                         barTemperatureDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-                        barTemperatureDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                        barTemperatureDataSet.setValueTextColor(Color.parseColor("#000000"));
 
 
                         BarDataSet humidityDataSet = new BarDataSet(barHumidityEntries, "% hum.");
                         humidityDataSet.setColors(new int []{R.color.colorHumidity}, getContext());
                         humidityDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-                        humidityDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                        humidityDataSet.setValueTextColor(Color.parseColor("#000000"));
 
                         Legend legend = barChart.getLegend();
                         legend.setEnabled(true);
@@ -203,6 +217,7 @@ public class TemperatureFragment extends Fragment {
                             BarData barData = new BarData(barDataSets);
                             barChart.setData(barData);
                             barChart.setFitBars(true);
+                            barChart.getAxisLeft().setAxisMinimum(5f);
                             barChart.groupBars(0f,0.4f, 0.01f);
                             barChart.getDescription().setText("Temperature & Humidity");
                             barChart.invalidate();
@@ -233,13 +248,13 @@ public class TemperatureFragment extends Fragment {
                         LineDataSet temperatureDataSet = new LineDataSet(temperatureEntries, "℃");
                         temperatureDataSet.setColors(new int []{R.color.colorTemperature}, getContext());
                         temperatureDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-                        temperatureDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                        temperatureDataSet.setValueTextColor(Color.parseColor("#000000"));
                         temperatureDataSet.setDrawCircles(false);
 
                         LineDataSet humidityDataSet = new LineDataSet(humidityEntries, "% hum.");
                         humidityDataSet.setColors(new int []{R.color.colorHumidity}, getContext());
                         humidityDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-                        humidityDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                        humidityDataSet.setValueTextColor(Color.parseColor("#000000"));
                         humidityDataSet.setDrawCircles(false);
 
 

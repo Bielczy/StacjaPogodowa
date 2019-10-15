@@ -18,13 +18,14 @@
 
         <TextView
             android:id="@+id/etykieta"
-            android:layout_width="220dp"
-            android:layout_height="87dp"
+            android:layout_width="233dp"
+            android:layout_height="85dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/etykieta"
-            android:textSize="13sp"
+            android:textAlignment="center"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toStartOf="@+id/btnLineChart"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,7 @@
             android:layout_width="129dp"
             android:layout_height="37dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="24dp"
             android:text="@string/btnLineChart"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,10 +55,10 @@
             android:textSize="13sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.809"
+            app:layout_constraintHorizontal_bias="0.428"
             app:layout_constraintStart_toEndOf="@+id/etykieta"
             app:layout_constraintTop_toBottomOf="@+id/btnLineChart"
-            app:layout_constraintVertical_bias="0.428" />
+            app:layout_constraintVertical_bias="0.125" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline3"
@@ -110,12 +111,11 @@
         <FrameLayout
             android:id="@+id/LineChartTemperature"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="430dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guideline5">
@@ -129,9 +129,116 @@
                 android:id="@+id/barChart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
-
         </FrameLayout>
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LineChartTemperature">
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                >
+
+                <TextView
+                    android:id="@+id/tvRangeStart"
+                    android:layout_width="195dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_gravity="center"
+                    android:text="tvRangeStart"
+
+                    />
+                <TextView
+                    android:id="@+id/tvRangeStop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tvRangeStop"
+                    android:layout_gravity="center"
+                    android:layout_column="1"
+
+                    />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:id="@+id/tvTempMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:text="tvTempMax"
+                    android:layout_gravity="center"
+                    />
+
+                <TextView
+                    android:id="@+id/tvHumMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:text="tvHumMax"
+                    android:layout_gravity="center"/>
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/tvTempAvr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:text="tvTempAvr"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:id="@+id/tvHumAvr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:text="tvHumAvr"
+                    android:layout_gravity="center"
+                    />
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/tvTempMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:text="tvTempMin"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:id="@+id/tvHumMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:text="tvHumMin"
+                    android:layout_gravity="center"
+                    />
+            </TableRow>
+
+
+        </TableLayout>
 
 
     </android.support.constraint.ConstraintLayout>

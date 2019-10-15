@@ -4,7 +4,7 @@
     <string name="etPassword">Password</string>
     <string name="btnLogin">LOGIN</string>
     <string name="tvCounter"></string>
-    <string name="etykieta">Choose the components to draw and click the Refresh button.</string>
+    <string name="etykieta">Choose the components and type of chart to draw.</string>
     <string name="btnShow">SHOW</string>
     <string name="etykieta2">Extracting by date - TEMPERATURE and HUMIDITY.</string>
     <string name="cbTemperature">Temperature</string>

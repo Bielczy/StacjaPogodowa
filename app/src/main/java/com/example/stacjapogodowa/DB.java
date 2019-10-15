@@ -71,11 +71,11 @@ public abstract class DB extends RoomDatabase {
         void generateTemperatureLogs() {
             List<TemperatureLog> logs = new ArrayList<>();
 
-            long baseTimeMs = new Date(2018, 11, 21, 10, 11, 0).getTime();
+            long baseTimeMs = new Date(2019, 8, 20, 10, 0, 0).getTime();
 
             int dateStep = 1000 * 60 * 5;
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 10000; i++) {
 
                 TemperatureLog log = new TemperatureLog();
 
