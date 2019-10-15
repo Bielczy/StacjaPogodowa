@@ -188,7 +188,7 @@ public class TemperatureFragment extends Fragment {
 
                             BarData barData = new BarData(barDataSets);
                             barChart.setData(barData);
-                            barChart.getDescription().setText("Huminidity");
+                            barChart.getDescription().setText("Humidity");
                             barChart.invalidate();
                         }
 
@@ -202,7 +202,9 @@ public class TemperatureFragment extends Fragment {
 
                             BarData barData = new BarData(barDataSets);
                             barChart.setData(barData);
-                            barChart.getDescription().setText("Temperature & Huminidity");
+                            barChart.setFitBars(true);
+                            barChart.groupBars(0f,0.4f, 0.01f);
+                            barChart.getDescription().setText("Temperature & Humidity");
                             barChart.invalidate();
                         }
 
@@ -271,7 +273,7 @@ public class TemperatureFragment extends Fragment {
 
                             LineData lineData = new LineData(dataSets);
                             lineChart.setData(lineData);
-                            lineChart.getDescription().setText("Huminidity");
+                            lineChart.getDescription().setText("Humidity");
                             lineChart.invalidate();
                         }
 
@@ -285,7 +287,7 @@ public class TemperatureFragment extends Fragment {
 
                             LineData lineData = new LineData(dataSets);
                             lineChart.setData(lineData);
-                            lineChart.getDescription().setText("Temperature & Huminidity");
+                            lineChart.getDescription().setText("Temperature & Humidity");
                             lineChart.invalidate();
                         }
 
