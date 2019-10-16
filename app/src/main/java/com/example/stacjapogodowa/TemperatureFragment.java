@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -28,6 +29,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -98,6 +101,8 @@ public class TemperatureFragment extends Fragment {
 
         String startFormated = DateFormatter.toString(range.start);
         String stopFormated = DateFormatter.toString(range.end);
+        float maxTemperature = DB.getDatabase(getContext()).temperatureLogs().getMaxTemperature(startFormated, stopFormated);
+        float minTemperature = DB.getDatabase(getContext()).temperatureLogs().getMinTemperature(startFormated, stopFormated);
 
         Disposable d = DB.getDatabase(getContext()).temperatureLogs().getByDate(startFormated, stopFormated)
                 .subscribeOn(Schedulers.io())
@@ -138,7 +143,8 @@ public class TemperatureFragment extends Fragment {
 
                         tvRangeStart.setText("FROM: "+startFormated+ " ");
                         tvRangeStop.setText("TO: "+stopFormated);
-
+                        tvTempMax.setText("Temp. MAX =  " + maxTemperature);
+                        tvTempMin.setText("Temp. MIN =  " + minTemperature);
                     }
 
 
@@ -217,7 +223,6 @@ public class TemperatureFragment extends Fragment {
                             BarData barData = new BarData(barDataSets);
                             barChart.setData(barData);
                             barChart.setFitBars(true);
-                            barChart.getAxisLeft().setAxisMinimum(5f);
                             barChart.groupBars(0f,0.4f, 0.01f);
                             barChart.getDescription().setText("Temperature & Humidity");
                             barChart.invalidate();

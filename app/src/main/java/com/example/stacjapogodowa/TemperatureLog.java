@@ -3,6 +3,7 @@ package com.example.stacjapogodowa;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 
@@ -23,6 +24,29 @@ public class TemperatureLog {
 
     @ColumnInfo(name = "date")
     protected String date;
+
+    public float getMinTemperature() {
+        return minTemperature;
+    }
+
+    public void setMinTemperature(float minTemperature) {
+        this.minTemperature = minTemperature;
+    }
+
+    @ColumnInfo(name = "MIN(temperature")
+    private float minTemperature;
+
+
+    public float getMaxTemperature() {
+        return maxTemperature;
+    }
+
+    public void setMaxTemperature(float maxTemperature) {
+        this.maxTemperature = maxTemperature;
+    }
+
+    @ColumnInfo(name = "MAX(temperature)")
+    private float maxTemperature = 0;
 
     public TemperatureLog() {
     }
@@ -60,6 +84,7 @@ public class TemperatureLog {
     public void setHumidity(float humidity) {
         this.humidity = humidity;
     }
+
 
     public void setSystemTime(long systemTime) {
         this.systemTime = systemTime;

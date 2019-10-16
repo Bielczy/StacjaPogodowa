@@ -19,9 +19,29 @@ public interface TemperatureLogDao {
     @Query("SELECT * FROM temperature_logs ORDER BY uid DESC LIMIT :limit")
     Single<List<TemperatureLog>> getLast(int limit);
 
-
     @Query("SELECT * FROM temperature_logs WHERE date BETWEEN :start AND :end")
     Single<List<TemperatureLog>> getByDate(String start, String end);
+
+//    @Query("SELECT * FROM temperature_logs WHERE (date BETWEEN :start AND :end) AND `MAX(temperature)`= (SELECT MAX(temperature) FROM temperature_logs )")
+//    Single<List<TemperatureLog>> getMaxTemperature(String start, String end);
+
+    @Query("SELECT MAX(temperature) FROM temperature_logs WHERE (date BETWEEN :start AND :end) ORDER BY temperature DESC")
+    float getMaxTemperature(String start, String end);
+
+    @Query("SELECT MIN(temperature) FROM temperature_logs WHERE (date BETWEEN :start AND :end) ORDER BY temperature DESC")
+    float getMinTemperature(String start, String end);
+//
+//    @Query("SELECT AVG(temperature) FROM temperature_logs WHERE date BETWEEN :start AND :end")
+//    Single<List<TemperatureLog>> getAvgTemp(String start, String end);
+//
+//    @Query("SELECT MAX(humidity) FROM temperature_logs WHERE date BETWEEN :start AND :end")
+//    Single<List<TemperatureLog>> getMaxHum(String start, String end);
+//
+//    @Query("SELECT MIN(humidity) FROM temperature_logs WHERE date BETWEEN :start AND :end")
+//    Single<List<TemperatureLog>> getMinHum(String start, String end);
+//
+//    @Query("SELECT AVG(humidity) FROM temperature_logs WHERE date BETWEEN :start AND :end")
+//    Single<List<TemperatureLog>> getAvgHum(String start, String end);
 
     @Insert
     void insertAll(TemperatureLog... logs);
