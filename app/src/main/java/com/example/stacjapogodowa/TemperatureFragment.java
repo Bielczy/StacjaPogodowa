@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -26,11 +25,11 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -48,7 +47,7 @@ public class TemperatureFragment extends Fragment {
     DateRange range;
     LineChart lineChart;
     BarChart barChart;
-    TextView tvRangeStart, tvRangeStop, tvTempMax, tvHumMax, tvTempAvr, tvHumAvr, tvTempMin, tvHumMin;
+    TextView tvRangeStart, tvRangeStop, tvTempMax, tvHumMax, tvTempAvg, tvHumAvg, tvTempMin, tvHumMin;
 
     private Object log;
 
@@ -77,20 +76,20 @@ public class TemperatureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnLineChart = (Button) view.findViewById(R.id.btnLineChart);
-        btnBarChart = (Button) view.findViewById(R.id.btnBarChart);
-        cbHumidity = (CheckBox) view.findViewById(R.id.cbHumidity);
-        cbTemperature = (CheckBox) view.findViewById(R.id.cbTemperature);
-        lineChart = (LineChart) view.findViewById(R.id.chart);
-        barChart = (BarChart) view.findViewById(R.id.barChart);
-        tvRangeStart = (TextView) view.findViewById(R.id.tvRangeStart);
-        tvRangeStop = (TextView) view.findViewById(R.id.tvRangeStop);
-        tvTempMax = (TextView) view.findViewById(R.id.tvTempMax);
-        tvHumMax = (TextView) view.findViewById(R.id.tvHumMax);
-        tvTempAvr = (TextView) view.findViewById(R.id.tvTempAvr);
-        tvHumAvr = (TextView) view.findViewById(R.id.tvHumAvr);
-        tvTempMin = (TextView) view.findViewById(R.id.tvTempMin);
-        tvHumMin = (TextView) view.findViewById(R.id.tvHumMin);
+        btnLineChart = view.findViewById(R.id.btnLineChart);
+        btnBarChart = view.findViewById(R.id.btnBarChart);
+        cbHumidity = view.findViewById(R.id.cbHumidity);
+        cbTemperature = view.findViewById(R.id.cbTemperature);
+        lineChart = view.findViewById(R.id.chart);
+        barChart = view.findViewById(R.id.barChart);
+        tvRangeStart = view.findViewById(R.id.tvRangeStart);
+        tvRangeStop = view.findViewById(R.id.tvRangeStop);
+        tvTempMax = view.findViewById(R.id.tvTempMax);
+        tvHumMax = view.findViewById(R.id.tvHumMax);
+        tvTempAvg = view.findViewById(R.id.tvTempAvg);
+        tvHumAvg = view.findViewById(R.id.tvHumAvg);
+        tvTempMin = view.findViewById(R.id.tvTempMin);
+        tvHumMin = view.findViewById(R.id.tvHumMin);
 
         setRetainInstance(true);
     }
@@ -103,6 +102,10 @@ public class TemperatureFragment extends Fragment {
         String stopFormated = DateFormatter.toString(range.end);
         float maxTemperature = DB.getDatabase(getContext()).temperatureLogs().getMaxTemperature(startFormated, stopFormated);
         float minTemperature = DB.getDatabase(getContext()).temperatureLogs().getMinTemperature(startFormated, stopFormated);
+        float maxHumidity = DB.getDatabase(getContext()).temperatureLogs().getMaxHumidity(startFormated, stopFormated);
+        float minHumidity = DB.getDatabase(getContext()).temperatureLogs().getMinHumidity(startFormated, stopFormated);
+        float avgTemperature = DB.getDatabase(getContext()).temperatureLogs().getAvgTemperature(startFormated, stopFormated);
+        float avgHumidity = DB.getDatabase(getContext()).temperatureLogs().getAvgHumidity(startFormated, stopFormated);
 
         Disposable d = DB.getDatabase(getContext()).temperatureLogs().getByDate(startFormated, stopFormated)
                 .subscribeOn(Schedulers.io())
@@ -111,26 +114,13 @@ public class TemperatureFragment extends Fragment {
 
 
                     @Override
-                    public void accept(final List<TemperatureLog> dane) throws Exception {
+                    public void accept(final List<TemperatureLog> dane) {
 
-                        btnLineChart.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                drawLineCharts(dane);
-                            }
-                        });
-                        btnBarChart.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                drawBarCharts(dane);
-                            }
-                        });
-                        cbTemperature.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                temperatureChecked = isChecked;
-                                drawLineCharts(dane);
-                            }
+                        btnLineChart.setOnClickListener(v -> drawLineCharts(dane));
+                        btnBarChart.setOnClickListener(v -> drawBarCharts(dane));
+                        cbTemperature.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                            temperatureChecked = isChecked;
+                            drawLineCharts(dane);
                         });
 
                         cbHumidity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -141,10 +131,14 @@ public class TemperatureFragment extends Fragment {
                             }
                         });
 
-                        tvRangeStart.setText("FROM: "+startFormated+ " ");
+                        tvRangeStart.setText("FROM: "+startFormated);
                         tvRangeStop.setText("TO: "+stopFormated);
-                        tvTempMax.setText("Temp. MAX =  " + maxTemperature);
-                        tvTempMin.setText("Temp. MIN =  " + minTemperature);
+                        tvTempMax.setText("MAX Temp. =  " + maxTemperature + " ℃  ");
+                        tvTempMin.setText("MIN Temp. =  " + minTemperature + " ℃  ");
+                        tvHumMax.setText("MAX Hum. =  " + maxHumidity + " %hum.  ");
+                        tvHumMin.setText("MIN Hum. =  " + minHumidity + " %hum.  ");
+                        tvTempAvg.setText("AVG Temp. =  " + avgTemperature + " ℃  ");
+                        tvHumAvg.setText("AVG Hum. =  " + avgHumidity + " %hum.  ");
                     }
 
 
@@ -173,10 +167,10 @@ public class TemperatureFragment extends Fragment {
                         barTemperatureDataSet.setValueTextColor(Color.parseColor("#000000"));
 
 
-                        BarDataSet humidityDataSet = new BarDataSet(barHumidityEntries, "% hum.");
-                        humidityDataSet.setColors(new int []{R.color.colorHumidity}, getContext());
-                        humidityDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-                        humidityDataSet.setValueTextColor(Color.parseColor("#000000"));
+                        BarDataSet barHumidityDataSet = new BarDataSet(barHumidityEntries, "% hum.");
+                        barHumidityDataSet.setColors(new int []{R.color.colorHumidity}, getContext());
+                        barHumidityDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+                        barHumidityDataSet.setValueTextColor(Color.parseColor("#000000"));
 
                         Legend legend = barChart.getLegend();
                         legend.setEnabled(true);
@@ -204,7 +198,7 @@ public class TemperatureFragment extends Fragment {
                         if (!temperatureChecked && humidityChecked){
 
                             ArrayList<IBarDataSet> barDataSets = new ArrayList<IBarDataSet>();
-                            barDataSets.add(humidityDataSet);
+                            barDataSets.add(barHumidityDataSet);
 
                             BarData barData = new BarData(barDataSets);
                             barChart.setData(barData);
@@ -218,7 +212,7 @@ public class TemperatureFragment extends Fragment {
 
                             ArrayList<IBarDataSet> barDataSets = new ArrayList<IBarDataSet>();
                             barDataSets.add(barTemperatureDataSet);
-                            barDataSets.add(humidityDataSet);
+                            barDataSets.add(barHumidityDataSet);
 
                             BarData barData = new BarData(barDataSets);
                             barChart.setData(barData);

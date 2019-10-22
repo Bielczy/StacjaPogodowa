@@ -25,28 +25,20 @@ public class TemperatureLog {
     @ColumnInfo(name = "date")
     protected String date;
 
-    public float getMinTemperature() {
-        return minTemperature;
-    }
-
-    public void setMinTemperature(float minTemperature) {
-        this.minTemperature = minTemperature;
-    }
-
     @ColumnInfo(name = "MIN(temperature")
-    private float minTemperature;
-
-
-    public float getMaxTemperature() {
-        return maxTemperature;
-    }
-
-    public void setMaxTemperature(float maxTemperature) {
-        this.maxTemperature = maxTemperature;
-    }
+    private float minTemperature = 0;
 
     @ColumnInfo(name = "MAX(temperature)")
     private float maxTemperature = 0;
+
+    @ColumnInfo(name = "MAX(humidity)")
+    private float maxHumidity = 0;
+
+    @ColumnInfo(name = "AVG(temperature)")
+    private float avgTemperature = 0;
+
+    @ColumnInfo(name = "AVG(humidity")
+    private float avgHumidity = 0;
 
     public TemperatureLog() {
     }
@@ -114,5 +106,43 @@ public class TemperatureLog {
         return date;
     }
 
+    public float getMaxHumidity() {
+        return maxHumidity;
+    }
 
+    public void setMaxHumidity(float maxHumidity) {
+        this.maxHumidity = maxHumidity;
+    }
+
+    public float getMinTemperature() {
+        return minTemperature;
+    }
+
+    public void setMinTemperature(float minTemperature) {
+        this.minTemperature = minTemperature;
+    }
+
+    public float getMaxTemperature() {
+        return maxTemperature;
+    }
+
+    public void setMaxTemperature(float maxTemperature) {
+        this.maxTemperature = maxTemperature;
+    }
+
+    public float getAvgTemperature() {
+        return avgTemperature;
+    }
+
+    public void setAvgTemperature(float avgTemperature) {
+        this.avgTemperature = avgTemperature;
+    }
+
+    public float getAvgHumidity() {
+        return avgHumidity;
+    }
+
+    public void setAvgHumidity(float avgHumidity) {
+        this.avgHumidity = avgHumidity;
+    }
 }

@@ -160,10 +160,10 @@
 
                 <TextView
                     android:id="@+id/tvRangeStart"
-                    android:layout_width="195dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:text="tvRangeStart"
 
                     />
@@ -173,7 +173,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:text="tvRangeStop"
 
                     />
@@ -190,7 +190,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:text="tvTempMax" />
 
                 <TextView
@@ -198,7 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:text="tvHumMax" />
             </TableRow>
 
@@ -209,19 +209,19 @@
                 android:padding="5dp">
 
                 <TextView
-                    android:id="@+id/tvTempAvr"
+                    android:id="@+id/tvTempAvg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:text="tvTempAvr" />
 
                 <TextView
-                    android:id="@+id/tvHumAvr"
+                    android:id="@+id/tvHumAvg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:text="tvHumAvr" />
             </TableRow>
 
@@ -236,7 +236,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:text="tvTempMin" />
 
                 <TextView
@@ -244,7 +244,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:text="tvHumMin" />
             </TableRow>
 

@@ -75,7 +75,7 @@ public abstract class DB extends RoomDatabase {
 
             int dateStep = 1000 * 60 * 5;
 
-            for (int i = 0; i < 10000; i++) {
+            for (int i = 0; i < 1000; i++) {
 
                 TemperatureLog log = new TemperatureLog();
 
