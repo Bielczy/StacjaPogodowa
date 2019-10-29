@@ -133,12 +133,12 @@ public class TemperatureFragment extends Fragment {
 
                         tvRangeStart.setText("FROM: "+startFormated);
                         tvRangeStop.setText("TO: "+stopFormated);
-                        tvTempMax.setText("MAX Temp. =  " + maxTemperature + " ℃  ");
-                        tvTempMin.setText("MIN Temp. =  " + minTemperature + " ℃  ");
-                        tvHumMax.setText("MAX Hum. =  " + maxHumidity + " %hum.  ");
-                        tvHumMin.setText("MIN Hum. =  " + minHumidity + " %hum.  ");
-                        tvTempAvg.setText("AVG Temp. =  " + avgTemperature + " ℃  ");
-                        tvHumAvg.setText("AVG Hum. =  " + avgHumidity + " %hum.  ");
+                        tvTempMax.setText("MAX Temp. =  " +(String.format(" %.3f ", maxTemperature) + " ℃  "));
+                        tvTempMin.setText("MIN Temp. =  " + (String.format(" %.3f ", minTemperature) + " ℃  "));
+                        tvHumMax.setText("MAX Hum. =  " + (String.format(" %.3f ", maxHumidity) + " %hum.  "));
+                        tvHumMin.setText("MIN Hum. =  " + (String.format(" %.3f ", minHumidity) + " %hum.  "));
+                        tvTempAvg.setText("AVG Temp. =  " + (String.format(" %.3f ", avgTemperature) + " ℃  "));
+                        tvHumAvg.setText("AVG Hum. =  " + (String.format(" %.3f ", avgHumidity) + " %hum.  "));
                     }
 
 

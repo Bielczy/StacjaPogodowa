@@ -163,8 +163,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
                     android:text="tvRangeStart"
+                    android:textColor="@color/colorDatatime"
 
                     />
 
@@ -173,8 +176,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
                     android:text="tvRangeStop"
+                    android:textColor="@color/colorDatatime"
 
                     />
             </TableRow>
@@ -190,7 +196,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
                     android:text="tvTempMax" />
 
                 <TextView
@@ -198,7 +206,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
                     android:text="tvHumMax" />
             </TableRow>
 
@@ -213,7 +223,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
                     android:text="tvTempAvr" />
 
                 <TextView
@@ -221,7 +233,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
                     android:text="tvHumAvr" />
             </TableRow>
 
@@ -236,7 +250,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
                     android:text="tvTempMin" />
 
                 <TextView
@@ -244,7 +260,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
                     android:text="tvHumMin" />
             </TableRow>
 
