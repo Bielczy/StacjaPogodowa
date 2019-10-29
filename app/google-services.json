@@ -1,34 +1,63 @@
 {
   "project_info": {
-    "project_number": "837507536012",
-    "firebase_url": "https://stacjapogodowa-59b0a.firebaseio.com",
-    "project_id": "stacjapogodowa-59b0a",
-    "storage_bucket": "stacjapogodowa-59b0a.appspot.com"
+    "project_number": "674274558672",
+    "firebase_url": "https://streamcharts-730ec.firebaseio.com",
+    "project_id": "streamcharts-730ec",
+    "storage_bucket": "streamcharts-730ec.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:837507536012:android:822ec0d62b2e77df",
+        "mobilesdk_app_id": "1:674274558672:android:797a904188edd304a714d5",
         "android_client_info": {
-          "package_name": "com.example.stacjapogodowa"
+          "package_name": "com.bielczy.streamcharts"
         }
       },
       "oauth_client": [
         {
-          "client_id": "837507536012-lp7krf1uudkrpec3vfiqucc3tqaguedc.apps.googleusercontent.com",
+          "client_id": "674274558672-nap5t1ov2dfajh1eq07k0t86fpjceonl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBRn2h8uc2HdnM_BAVjcKeRbYmlDHjrqS4"
+          "current_key": "AIzaSyBN_234fKv5GTl4kEgCrmfOHnSqDnceG2s"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "837507536012-lp7krf1uudkrpec3vfiqucc3tqaguedc.apps.googleusercontent.com",
+              "client_id": "674274558672-nap5t1ov2dfajh1eq07k0t86fpjceonl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674274558672:android:e9be7f1ab184c6aba714d5",
+        "android_client_info": {
+          "package_name": "com.example.stacjapogodowa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674274558672-nap5t1ov2dfajh1eq07k0t86fpjceonl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN_234fKv5GTl4kEgCrmfOHnSqDnceG2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674274558672-nap5t1ov2dfajh1eq07k0t86fpjceonl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

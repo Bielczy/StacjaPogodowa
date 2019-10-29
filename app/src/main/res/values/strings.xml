@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StacjaPogodowa</string>
+    <string name="app_name">DataStreamCharts</string>
     <string name="etLogin">Login</string>
     <string name="etPassword">Password</string>
     <string name="btnLogin">LOGIN</string>
@@ -21,7 +21,14 @@
     <string name="btnLineChart">LINE Chart</string>
     <string name="btnBarChart">BAR Chart</string>
     <string name="start_date">Start Date</string>
-
+    <string name="tvRegister">New User - Register</string>
+    <string name="tvForgotPass">Forgot Password?</string>
+    <string name="etUserName">Name</string>
+    <string name="etUserEmail">E-mail</string>
+    <string name="etUserPassword">Password</string>
+    <string name="btnRegister">Register</string>
+    <string name="tvAlreadyRegistered">Already Registered - Back to Login.</string>
+    <string name="btnPasswordReset">RESET Password</string>
 
 
 
