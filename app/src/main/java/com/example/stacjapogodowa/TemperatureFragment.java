@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -92,6 +94,13 @@ public class TemperatureFragment extends Fragment {
         tvHumMin = view.findViewById(R.id.tvHumMin);
 
         setRetainInstance(true);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.temperature_fragm, menu);
     }
 
     @Override
@@ -179,6 +188,7 @@ public class TemperatureFragment extends Fragment {
 
                         if (!temperatureChecked && !humidityChecked ){
                             barChart.setVisibility(View.INVISIBLE);
+                            allValuesInvisible();
                         }
 
 // only Temperature
@@ -192,6 +202,8 @@ public class TemperatureFragment extends Fragment {
                             barChart.setData(barData);
                             barChart.getDescription().setText("Temperature");
                             barChart.invalidate();
+
+                            tempValuesVisibility();
                         }
 //only Humidity
 
@@ -204,6 +216,8 @@ public class TemperatureFragment extends Fragment {
                             barChart.setData(barData);
                             barChart.getDescription().setText("Humidity");
                             barChart.invalidate();
+
+                            humValuesVisibility();
                         }
 
 // Temperature + Humidity
@@ -220,6 +234,8 @@ public class TemperatureFragment extends Fragment {
                             barChart.groupBars(0f,0.4f, 0.01f);
                             barChart.getDescription().setText("Temperature & Humidity");
                             barChart.invalidate();
+
+                            allValuesVisible();
                         }
 
 
@@ -264,6 +280,7 @@ public class TemperatureFragment extends Fragment {
 
                         if (!temperatureChecked && !humidityChecked ){
                             lineChart.setVisibility(View.INVISIBLE);
+                            allValuesInvisible();
                         }
 
 // only Temperature
@@ -277,6 +294,8 @@ public class TemperatureFragment extends Fragment {
                             lineChart.setData(lineData);
                             lineChart.getDescription().setText("Temperature");
                             lineChart.invalidate();
+
+                            tempValuesVisibility();
                         }
 //only Humidity
 
@@ -289,6 +308,8 @@ public class TemperatureFragment extends Fragment {
                             lineChart.setData(lineData);
                             lineChart.getDescription().setText("Humidity");
                             lineChart.invalidate();
+
+                            humValuesVisibility();
                         }
 
 // Temperature + Humidity
@@ -303,8 +324,45 @@ public class TemperatureFragment extends Fragment {
                             lineChart.setData(lineData);
                             lineChart.getDescription().setText("Temperature & Humidity");
                             lineChart.invalidate();
+
+                            allValuesVisible();
                         }
 
+                    }
+                    private void tempValuesVisibility(){
+                        tvTempMax.setVisibility(View.VISIBLE);
+                        tvTempMin.setVisibility(View.VISIBLE);
+                        tvTempAvg.setVisibility(View.VISIBLE);
+                        tvHumMax.setVisibility(View.INVISIBLE);
+                        tvHumMin.setVisibility(View.INVISIBLE);
+                        tvHumAvg.setVisibility(View.INVISIBLE);
+                    }
+
+                    private void humValuesVisibility(){
+                        tvTempMax.setVisibility(View.INVISIBLE);
+                        tvTempMin.setVisibility(View.INVISIBLE);
+                        tvTempAvg.setVisibility(View.INVISIBLE);
+                        tvHumMax.setVisibility(View.VISIBLE);
+                        tvHumMin.setVisibility(View.VISIBLE);
+                        tvHumAvg.setVisibility(View.VISIBLE);
+                    }
+
+                    private void allValuesVisible(){
+                        tvTempMax.setVisibility(View.VISIBLE);
+                        tvTempMin.setVisibility(View.VISIBLE);
+                        tvTempAvg.setVisibility(View.VISIBLE);
+                        tvHumMax.setVisibility(View.VISIBLE);
+                        tvHumMin.setVisibility(View.VISIBLE);
+                        tvHumAvg.setVisibility(View.VISIBLE);
+                    }
+
+                    private void allValuesInvisible(){
+                        tvTempMax.setVisibility(View.INVISIBLE);
+                        tvTempMin.setVisibility(View.INVISIBLE);
+                        tvTempAvg.setVisibility(View.INVISIBLE);
+                        tvHumMax.setVisibility(View.INVISIBLE);
+                        tvHumMin.setVisibility(View.INVISIBLE);
+                        tvHumAvg.setVisibility(View.INVISIBLE);
                     }
                 });
     }

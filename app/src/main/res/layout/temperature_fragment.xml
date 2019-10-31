@@ -199,7 +199,8 @@
                     android:layout_gravity="center"
                     android:textStyle="normal"
                     android:textSize="14sp"
-                    android:text="tvTempMax" />
+                    android:text="tvTempMax"
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/tvHumMax"
@@ -209,7 +210,8 @@
                     android:layout_gravity="center"
                     android:textStyle="normal"
                     android:textSize="14sp"
-                    android:text="tvHumMax" />
+                    android:text="tvHumMax"
+                    android:visibility="invisible"/>
             </TableRow>
 
             <TableRow
@@ -226,7 +228,8 @@
                     android:layout_gravity="center"
                     android:textStyle="normal"
                     android:textSize="14sp"
-                    android:text="tvTempAvr" />
+                    android:text="tvTempAvr"
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/tvHumAvg"
@@ -236,7 +239,8 @@
                     android:layout_gravity="center"
                     android:textStyle="normal"
                     android:textSize="14sp"
-                    android:text="tvHumAvr" />
+                    android:text="tvHumAvr"
+                    android:visibility="invisible"/>
             </TableRow>
 
             <TableRow
@@ -253,7 +257,8 @@
                     android:layout_gravity="center"
                     android:textStyle="normal"
                     android:textSize="14sp"
-                    android:text="tvTempMin" />
+                    android:text="tvTempMin"
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/tvHumMin"
@@ -263,7 +268,8 @@
                     android:layout_gravity="center"
                     android:textStyle="normal"
                     android:textSize="14sp"
-                    android:text="tvHumMin" />
+                    android:text="tvHumMin"
+                    android:visibility="invisible"/>
             </TableRow>
 
 
