@@ -1,13 +1,16 @@
 package com.example.stacjapogodowa;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,6 +30,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +54,7 @@ public class TemperatureFragment extends Fragment {
     LineChart lineChart;
     BarChart barChart;
     TextView tvRangeStart, tvRangeStop, tvTempMax, tvHumMax, tvTempAvg, tvHumAvg, tvTempMin, tvHumMin;
+    FirebaseAuth firebaseAuth;
 
     private Object log;
 
@@ -93,14 +98,33 @@ public class TemperatureFragment extends Fragment {
         tvTempMin = view.findViewById(R.id.tvTempMin);
         tvHumMin = view.findViewById(R.id.tvHumMin);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setRetainInstance(true);
         setHasOptionsMenu(true);
+
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.temperature_fragm, menu);
+        menu.clear();
+        inflater.inflate(R.menu.menu_fragm, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout: {
+                firebaseAuth.signOut();
+                startActivity(new Intent(getContext(), MainActivity.class));
+            }
+            case android.R.id.home: {
+                getActivity().onBackPressed();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -366,7 +390,6 @@ public class TemperatureFragment extends Fragment {
                     }
                 });
     }
-
 
 
     public static class DateRange{

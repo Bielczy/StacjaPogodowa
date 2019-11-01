@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     counter--;
                     Info.setText("Nomber of attempts remaining: " + counter);
-                    if (counter == 0){
+                    if (counter == 0  ){
                         Login.setEnabled(false);
                     }
                 }
