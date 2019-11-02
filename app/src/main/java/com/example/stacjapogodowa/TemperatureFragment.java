@@ -1,12 +1,15 @@
 package com.example.stacjapogodowa;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +35,10 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,9 +130,48 @@ public class TemperatureFragment extends Fragment {
             case android.R.id.home: {
                 getActivity().onBackPressed();
             }
+            case R.id.export: {
+               //exportToServer();
+                startActivity(new Intent(getContext(), ArchiveActivity.class));
+            }
         }
         return super.onOptionsItemSelected(item);
     }
+
+ /*   private void exportToServer() {
+        MenuItem export;
+        export = getView().findViewById(R.id.export);
+        export.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Bitmap bitmap = takeScreenshot();
+                saveBitmap(bitmap);
+
+                return true;
+            }
+        });
+    }
+    private Bitmap takeScreenshot() {
+        View rootView = getView().findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        return rootView.getDrawingCache();
+    }
+        public void saveBitmap(Bitmap  bitmap) {
+            File imagePath = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
+            FileOutputStream fos;
+            try {
+                fos = new FileOutputStream(imagePath);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                fos.flush();
+                fos.close();
+            } catch (FileNotFoundException e) {
+                Log.e("GREC", e.getMessage(), e);
+            } catch (IOException e) {
+                Log.e("GREC", e.getMessage(), e);
+            }
+        }
+
+*/
 
     @Override
     public void onStart() {

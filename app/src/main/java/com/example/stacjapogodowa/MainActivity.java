@@ -57,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validation(Name.getText().toString(), Password.getText().toString());
+                if (validate()){
+                    validation(Name.getText().toString(), Password.getText().toString());
+                }
             }
         });
         userRegistration.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +76,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private Boolean validate() {
+        Boolean result = false;
+
+        String name = Name.getText().toString();
+        String password = Password.getText().toString();
+
+
+        if(name.isEmpty() || password.isEmpty() ){
+            Toast.makeText(this, "Please enter all the details." , Toast.LENGTH_SHORT).show();
+        }
+        else {
+            result = true;
+        }
+        return result;
+    }
+
     private void validation(String userName, String userPassword){
         progressDialog.setMessage("Verification in progress, please wait...");
         progressDialog.show();
@@ -87,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     progressDialog.dismiss();
-                    Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Login Failed. Check your internet connection", Toast.LENGTH_SHORT).show();
                     counter--;
                     Info.setText("Nomber of attempts remaining: " + counter);
                     if (counter == 0  ){
