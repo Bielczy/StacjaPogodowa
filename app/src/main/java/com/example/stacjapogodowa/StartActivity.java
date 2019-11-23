@@ -22,6 +22,8 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         Button showValuesButton = (Button)findViewById(R.id.btnTemperature);
+        Button retriveData = (Button)findViewById(R.id.btnArchive);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         showValuesButton.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +36,16 @@ public class StartActivity extends AppCompatActivity {
                         .commit();
             }
         });
+
+        retriveData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, ArchiveActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

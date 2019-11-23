@@ -1,99 +1,181 @@
 package com.example.stacjapogodowa;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
+
+import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
+import java.util.ArrayList;
+
+import static java.security.AccessController.getContext;
+
 
 public class ArchiveActivity extends AppCompatActivity {
 
-    private ImageView screenShot;
-    private Button sendToServer;
-
-    private FirebaseAuth firebaseAuth;
-    private FirebaseStorage firebaseStorage;
-
-    private static int PICK_IMAGE = 123;
-    Uri imagePath;
-    private StorageReference storageReference;
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == PICK_IMAGE && requestCode == RESULT_OK && data.getData() != null){
-            imagePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imagePath);
-                screenShot.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+    Button btnInsert, btnRetrive, btnClear;
+    LineChart lineChartArchive;
+    BarChart barChartArchive;
+    EditText xValue, yValue, dataSetLabel;
+    TextView tvRangeStartArchive, tvRangeStopArchive, tvDataset1Max, tvDataset2Max, tvDataset1Avg, tvDataset2Avg, tvDataset1Min, tvDataset2Min;
+    FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    LineDataSet lineDataSet = new LineDataSet(null, null);
+    ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
+    LineData lineData;
+    long maxid = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_archive);
 
-        screenShot = (ImageView)findViewById(R.id.ivScreenShot);
-        sendToServer = (Button)findViewById(R.id.btnSend);
+        lineChartArchive = findViewById(R.id.lineChartArchive);
+       // barChartArchive = findViewById(R.id.barChartArchive);
+//        tvRangeStartArchive = findViewById(R.id.tvRangeStartArchive);
+//        tvRangeStopArchive = findViewById(R.id.tvRangeStopArchive);
+//        tvDataset1Max = findViewById(R.id.tvDataset1Max);
+//        tvDataset2Max = findViewById(R.id.tvDataset2Max);
+//        tvDataset1Avg = findViewById(R.id.tvDataset1Avg);
+//        tvDataset2Avg = findViewById(R.id.tvDataset2Avg);
+//        tvDataset1Min = findViewById(R.id.tvDataset1Min);
+//        tvDataset2Min = findViewById(R.id.tvDataset2Min);
+        dataSetLabel = findViewById(R.id.etDataSetLabel);
+        btnClear = findViewById(R.id.btnClear);
+        btnInsert = findViewById(R.id.btnInsert);
+        btnRetrive = findViewById(R.id.btnRetrive);
+        xValue = findViewById(R.id.etAxisX);
+        yValue = findViewById(R.id.etAxisY);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
+        String chartLabel = dataSetLabel.getText().toString();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference(chartLabel);
 
-        StorageReference storageReference = firebaseStorage.getReference();  //dlaczego wyszarzone skoro występuje w sendToServer() ???
-
-        screenShot.setOnClickListener(new View.OnClickListener() {
+        btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select image"), PICK_IMAGE);
+                databaseReference.setValue(null);
+                btnClear.setEnabled(false);
+            }
+        });
+        btnRetrive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                retriveData();
             }
         });
 
-        sendToServer.setOnClickListener(new View.OnClickListener() {
+        insertData();
+        lineDataSet.setLineWidth(2);
+        lineDataSet.setColor(Color.RED);
+    }
+
+    private void insertData() {
+
+        btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendToServer();  //TODO wymaga przemyślenia
+                maxid++;
+              // String id = databaseReference.push().getKey();
+                String chartLabel = dataSetLabel.getText().toString();
+               float x = Float.parseFloat(xValue.getText().toString());
+               float y = Float.parseFloat(yValue.getText().toString());
+
+                DataPoint dataPoint = new DataPoint(x, y);
+                databaseReference.child(chartLabel + maxid).setValue(dataPoint);
+
+                settingLabel();
+                retriveData();
             }
         });
     }
 
+    private void settingLabel() {
+        if(dataSetLabel.getText().toString().isEmpty()){
+            dataSetLabel.setEnabled(true);
+        }else {
+            dataSetLabel.setEnabled(false);
+        }
+    }
 
-    private void sendToServer(){
-        StorageReference imageReference = storageReference.child(firebaseAuth.getUid()).child("Raport Pictures");
-        UploadTask uploadTask = imageReference.putFile(imagePath);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
+    private void retriveData() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+
+
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ArchiveActivity.this, "Raport sending error.", Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Entry> lineDataVals = new ArrayList<Entry>();
+
+                if (dataSnapshot.hasChildren()){
+                    for (DataSnapshot myDataSnapshot : dataSnapshot.getChildren()){
+                       DataPoint  dataPoint = myDataSnapshot.getValue(DataPoint.class);
+
+                          lineDataVals.add(new Entry(dataPoint.getxValue(), dataPoint.getyValue()));
+                    }
+                    showLineChart(lineDataVals);
+                }
+                else {
+                    lineChartArchive.clear();
+                    lineChartArchive.invalidate();
+                }
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(ArchiveActivity.this, "Raport sent to server", Toast.LENGTH_SHORT).show();
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+
     }
+
+    private void showLineChart(ArrayList<Entry> lineDataVals) {
+
+        lineDataSet.setValues(lineDataVals);
+        lineDataSet.setLabel(dataSetLabel.getText().toString());
+        iLineDataSets.clear();
+        iLineDataSets.add(lineDataSet);
+        lineData = new LineData(iLineDataSets);
+        lineChartArchive.clear();
+        lineChartArchive.setData(lineData);
+        lineChartArchive.invalidate();
+
+        Description description = lineChartArchive.getDescription();
+        //description.setText(dataSetLabel.getText().toString());
+        //description.setTextSize(12f);
+        description.setEnabled(false);
+
+        Legend legend = lineChartArchive.getLegend();
+        legend.setEnabled(true);
+        legend.setTextSize(12f);
+        legend.setTextColor(Color.RED);
+
+    }
+
+
 }

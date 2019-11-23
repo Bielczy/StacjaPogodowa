@@ -197,6 +197,7 @@ public class TemperatureFragment extends Fragment {
 
                         btnLineChart.setOnClickListener(v -> drawLineCharts(dane));
                         btnBarChart.setOnClickListener(v -> drawBarCharts(dane));
+
                         cbTemperature.setOnCheckedChangeListener((buttonView, isChecked) -> {
                             temperatureChecked = isChecked;
                             drawLineCharts(dane);

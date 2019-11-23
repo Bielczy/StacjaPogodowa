@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:674274558672:android:d2eee675ab6b2f71a714d5",
+        "android_client_info": {
+          "package_name": "com.bielczy.senddataapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674274558672-i34j60435prppiitobo4pkjhoi6hv1gu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bielczy.senddataapplication",
+            "certificate_hash": "43f204635e7c4b2508bf0c3a036573814f21103e"
+          }
+        },
+        {
+          "client_id": "674274558672-nap5t1ov2dfajh1eq07k0t86fpjceonl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN_234fKv5GTl4kEgCrmfOHnSqDnceG2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674274558672-nap5t1ov2dfajh1eq07k0t86fpjceonl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:674274558672:android:797a904188edd304a714d5",
         "android_client_info": {
           "package_name": "com.bielczy.streamcharts"
@@ -43,6 +80,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "674274558672-tu5e4up5ahmgudkpkltlajuagfm3crq8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stacjapogodowa",
+            "certificate_hash": "43f204635e7c4b2508bf0c3a036573814f21103e"
+          }
+        },
         {
           "client_id": "674274558672-nap5t1ov2dfajh1eq07k0t86fpjceonl.apps.googleusercontent.com",
           "client_type": 3
