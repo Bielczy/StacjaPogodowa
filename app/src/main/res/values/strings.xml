@@ -11,7 +11,7 @@
     <string name="cbHumidity">Humidity</string>
     <string name="tvPickerStart">date Start</string>
     <string name="tvPickerEnd">date End</string>
-    <string name="tvPowitanie">Welcome to aplication. Push the button below to display data.</string>
+    <string name="tvPowitanie">Push the button below to choose the application\'s activity.</string>
     <string name="imageStart"> </string>
     <string name="stop_date">Stop Date</string>
     <string name="start_time">Start Time</string>
@@ -30,15 +30,20 @@
     <string name="tvAlreadyRegistered">Already Registered - Back to Login.</string>
     <string name="btnPasswordReset">RESET Password</string>
     <string name="btnSend">Send to server</string>
-    <string name="btnArchive">Retrive Data</string>
+    <string name="btnArchive">Custom data chart</string>
     <string name="tvEtykietaArchive">Retrive data from Firebase.</string>
     <string name="cbDataset1">Dataset 1</string>
     <string name="cbDataset2">Dataset 2</string>
     <string name="etAxisX">axis X...</string>
     <string name="etAxisY">axis Y...</string>
     <string name="btnInsert">Insert</string>
-    <string name="btnRetrive">Retrive data from Firebase</string>
     <string name="btnClear">clear before adding new values</string>
+    <string name="etUnit">unit</string>
+    <string name="btnRetrive">Retrive from Firebase</string>
+    <string name="tvRetriveLabel">Click on the button RETRIVE to fetch data from Firebase</string>
+    <string name="etDataSetRetriveLabel">DataSet Label</string>
+    <string name="btnRetriveFromFirebase">RETRIVE</string>
+
 
 
 

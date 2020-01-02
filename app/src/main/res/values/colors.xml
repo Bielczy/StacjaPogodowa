@@ -8,4 +8,6 @@
     <color name="colorDateExtract">#e3e6d8</color>
     <color name="colorTemperatureChart">#d9dec9</color>
     <color name="colorDatatime">#7E2408</color>
+    <color name="colorButtons">#9FC278</color>
+
 </resources>

@@ -127,58 +127,18 @@ public class TemperatureFragment extends Fragment {
                 firebaseAuth.signOut();
                 startActivity(new Intent(getContext(), MainActivity.class));
             }
-            case android.R.id.home: {
-                getActivity().onBackPressed();
-            }
-            case R.id.export: {
-               //exportToServer();
-                startActivity(new Intent(getContext(), ArchiveActivity.class));
-            }
         }
         return super.onOptionsItemSelected(item);
     }
 
- /*   private void exportToServer() {
-        MenuItem export;
-        export = getView().findViewById(R.id.export);
-        export.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Bitmap bitmap = takeScreenshot();
-                saveBitmap(bitmap);
 
-                return true;
-            }
-        });
-    }
-    private Bitmap takeScreenshot() {
-        View rootView = getView().findViewById(android.R.id.content).getRootView();
-        rootView.setDrawingCacheEnabled(true);
-        return rootView.getDrawingCache();
-    }
-        public void saveBitmap(Bitmap  bitmap) {
-            File imagePath = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
-            FileOutputStream fos;
-            try {
-                fos = new FileOutputStream(imagePath);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                fos.flush();
-                fos.close();
-            } catch (FileNotFoundException e) {
-                Log.e("GREC", e.getMessage(), e);
-            } catch (IOException e) {
-                Log.e("GREC", e.getMessage(), e);
-            }
-        }
-
-*/
 
     @Override
     public void onStart() {
         super.onStart();
 
         String startFormated = DateFormatter.toString(range.start);
-        String stopFormated = DateFormatter.toString(range.end);
+        String stopFormated =  DateFormatter.toString(range.end);
         float maxTemperature = DB.getDatabase(getContext()).temperatureLogs().getMaxTemperature(startFormated, stopFormated);
         float minTemperature = DB.getDatabase(getContext()).temperatureLogs().getMinTemperature(startFormated, stopFormated);
         float maxHumidity = DB.getDatabase(getContext()).temperatureLogs().getMaxHumidity(startFormated, stopFormated);
@@ -211,8 +171,8 @@ public class TemperatureFragment extends Fragment {
                             }
                         });
 
-                        tvRangeStart.setText("FROM: "+startFormated);
-                        tvRangeStop.setText("TO: "+stopFormated);
+                        tvRangeStart.setText("FROM:  "+startFormated + " ");
+                        tvRangeStop.setText("TO:  "+stopFormated);
                         tvTempMax.setText("MAX Temp. =  " +(String.format(" %.3f ", maxTemperature) + " ℃  "));
                         tvTempMin.setText("MIN Temp. =  " + (String.format(" %.3f ", minTemperature) + " ℃  "));
                         tvHumMax.setText("MAX Hum. =  " + (String.format(" %.3f ", maxHumidity) + " %hum.  "));

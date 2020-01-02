@@ -23,7 +23,7 @@ public class StartActivity extends AppCompatActivity {
 
         Button showValuesButton = (Button)findViewById(R.id.btnTemperature);
         Button retriveData = (Button)findViewById(R.id.btnArchive);
-
+        Button retriveFromFirebase = (Button)findViewById(R.id.btnRetrive);
         firebaseAuth = FirebaseAuth.getInstance();
 
         showValuesButton.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +42,13 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(StartActivity.this, ArchiveActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        retriveFromFirebase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StartActivity.this, RetriveActivity.class));
             }
         });
     }
